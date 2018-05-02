@@ -1,0 +1,8 @@
+{
+  "name": "Halazona",
+  "app_id": "4eae7595",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
