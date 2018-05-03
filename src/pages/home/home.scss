@@ -1,3 +1,39 @@
 page-home {
 
+    ion-content{
+        background: $app-background;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+
+        }
+  
+    
+.spinner svg {
+
+    width: 28px;
+    
+    height: 28px;
+    
+    stroke: #444;
+    
+    fill: 	#fff;
+    
+    }
+    
+    ion-title {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-style: italic;
+        color: rgb(8, 8, 61);
+        font-size: 50%;
+        font-weight: bolder;
+        text-align: center;
+        vertical-align: center;
+    }
+
+ion-row{
+    align-content: center!important;
+    align-items: center!important;
+    vertical-align: middle;
+}
 }

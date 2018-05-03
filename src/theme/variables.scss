@@ -38,8 +38,12 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:      rgb(19, 10, 51)
+
 );
+$app-background: linear-gradient(to bottom, color($colors, light) 0%, color($colors, dark) 100%);
+$background-color: transparent;
+$toolbar-background: transparent;
 
 
 // App iOS Variables
