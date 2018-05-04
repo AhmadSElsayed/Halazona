@@ -14,12 +14,9 @@ export class HomePage {
 	// Find Type
 	nsp: any;
 	socket: any;
-	status:number;
 	constructor(public navCtrl: NavController, private media: Media) {
-		var that = this;
 		this.mediaCreator = this.media;
-		this.socket = sio('http://localhost:17777', {forceNew: true});
-		//this.nsp = sio('/music', {forceNew: true});
+		this.socket = sio('http://10.0.0.120:17777/0', {forceNew: true});
 		this.nsp = this.socket;
 		
 		this.nsp.on('connection', function (server) {
@@ -28,23 +25,24 @@ export class HomePage {
 
 		this.nsp.on('play', (data) => {
 			console.log('Playing', data);
-			that.track = that.mediaCreator.create(data.url);
+			this.track = this.mediaCreator.create(data.url);
+			this.track.errorCallback = (error) => {console.log('error', error)};
+			this.track.statusCallback = (error) => {console.log('status', error)};
+			this.track.successCallback = (error) => {console.log('success', error)};
+			this.playing = true;
 			this.track.play();
-			this.track.onStatusUpdate.subscribe((s) => {this.status = s});
-			that.track.onError.subscribe(error => console.log('Error', error));
-			that.playing = true;
-			//let timeOut = setTimeout(() => {
-			while(this.status != 2)
-				that.track.seekTo(data.position + 100);
-			//	console.log('starting from:', data.position);
-			//}, 100);
+			this.track.getCurrentPosition().then((p)=> {
+					console.log('real position', p, this.track);
+					this.track.seekTo(data.position);
+					console.log('playing from:', data.position);
+			});
 		});
 
 		this.nsp.on('seek', (data) => {
-			that.track.play();
-			that.playing = true;
+			this.track.play();
+			this.playing = true;
 			let timeOut = setTimeout(() => {
-				that.track.seekTo(data.position + 100);
+				this.track.seekTo(data.position + 100);
 				console.log('seeking from:', data.position);
 			}, 100);		
 		});
